@@ -1,0 +1,37 @@
+{
+    "name": "pauls1910/laravel-adapty",
+    "description": "Laravel integration for Adapty Server-Side API v2",
+    "keywords": ["laravel", "adapty", "subscriptions", "api"],
+    "license": "MIT",
+    "homepage": "https://github.com/PaulS1910/LaravelAdapty",
+    "support": {
+        "issues": "https://github.com/PaulS1910/LaravelAdapty/issues",
+        "source": "https://github.com/PaulS1910/LaravelAdapty"
+    },
+    "require": {
+        "php": "^8.2",
+        "illuminate/http": "^11.0.0",
+        "illuminate/support": "^10.0.0|^11.0.0",
+        "guzzlehttp/guzzle": "^7.5"
+       
+    },
+    "autoload": {
+        "psr-4": {
+            "PS\\LaravelAdapty\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PS\\LaravelAdapty\\Providers\\AdaptyServiceProvider"
+            ],
+            "aliases": {
+                "Adapty": "PS\\LaravelAdapty\\Facades\\Adapty"
+            }
+        }
+    }
+}
