@@ -5,11 +5,11 @@ namespace PS\LaravelAdapty\DTO;
 
 class AccessLevel implements \JsonSerializable
 {
-    private string|null $startsAt;
+    private ?string $startsAt;
 
-    private string|null $expiresAt;
+    private ?string $expiresAt;
 
-    private string|null $revokeAt;
+    private ?string $revokeAt;
 
     /**
      * @param string $accessLevelId
@@ -21,7 +21,7 @@ class AccessLevel implements \JsonSerializable
     }
 
     /**
-     * @param string|null $startsAt
+     * @param ?string $startsAt
      * @return void
      */
     public function setStartsAt(?string $startsAt):  void
@@ -30,19 +30,19 @@ class AccessLevel implements \JsonSerializable
     }
 
     /**
-     * @param string|null $expiresAt
+     * @param ?string $expiresAt
      * @return void
      */
-    public function setExpiresAt(string $expiresAt): void
+    public function setExpiresAt(?string $expiresAt): void
     {
         $this->expiresAt = $expiresAt;
     }
 
     /**
-     * @param string|null $revokeAt
+     * @param ?string $revokeAt
      * @return void
      */
-    public function setRevokeAt(string $revokeAt): void
+    public function setRevokeAt(?string $revokeAt): void
     {
         $this->revokeAt = $revokeAt;
     }
@@ -53,10 +53,10 @@ class AccessLevel implements \JsonSerializable
     public function toArray(): array
     {
         return array_filter([
-            'access_level_id' => $this->accessLevelId,
-            'starts_at' => $this->startsAt,
-            'expires_at' => $this->expiresAt,
-            'revoke_at' => $this->revokeAt,
+            'access_level_id' => $this->accessLevelId ?? null,
+            'starts_at' => $this->startsAt ?? null,
+            'expires_at' => $this->expiresAt ?? null,
+            'revoke_at' => $this->revokeAt ?? null,
         ]);
     }
 

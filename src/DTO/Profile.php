@@ -5,21 +5,21 @@ namespace PS\LaravelAdapty\DTO;
 
 class Profile implements \JsonSerializable
 {
-    private string|null $firstName;
+    private ?string $firstName;
 
-    private string|null $lastName;
+    private ?string $lastName;
 
-    private string|null $gender;
+    private ?string $gender;
 
-    private string|null $email;
+    private ?string $email;
 
-    private string|null $phoneNumber;
+    private ?string $phoneNumber;
 
     private string $birthday;
 
-    private string|null $ipCountry;
+    private ?string $ipCountry;
 
-    private string|null $storeCountry;
+    private ?string $storeCountry;
 
     private bool $analyticsDisabled;
 
@@ -31,7 +31,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @param string|null $firstName
+     * @param ?string $firstName
      * @return void
      */
     public function setFirstName(?string $firstName): void
@@ -40,7 +40,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @param string|null $lastName
+     * @param ?string $lastName
      * @return void
      */
     public function setLastName(?string $lastName): void
@@ -49,7 +49,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @param string|null $gender
+     * @param ?string $gender
      * @return void
      */
     public function setGender(?string $gender): void
@@ -58,7 +58,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @param string|null $email
+     * @param ?string $email
      * @return void
      */
     public function setEmail(?string $email): void
@@ -67,7 +67,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @param string|null $phoneNumber
+     * @param ?string $phoneNumber
      * @return void
      */
     public function setPhoneNumber(?string $phoneNumber): void
@@ -85,7 +85,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @param string|null $ipCountry
+     * @param ?string $ipCountry
      * @return void
      */
     public function setIpCountry(?string $ipCountry): void
@@ -94,7 +94,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @param string|null $storeCountry
+     * @param ?string $storeCountry
      * @return void
      */
     public function setStoreCountry(?string $storeCountry): void
