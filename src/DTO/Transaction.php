@@ -14,15 +14,21 @@ class Transaction implements \JsonSerializable
 
     private string $refundedAt;
 
-    private string|null $cancellationReason;
+    private ?string $cancellationReason;
 
     private string $variationId;
 
     private string $renewStatusChangedAt;
 
-    private string|null $billingIssueDetectedAt;
+    private ?string $billingIssueDetectedAt;
 
     private string $gracePeriodExpiresAt;
+
+    private string $originallyPurchasedAt;
+
+    private bool $renewStatus;
+
+    private ?string $expiresAt;
 
     public function __construct(
         private string $purchaseType,
@@ -32,9 +38,6 @@ class Transaction implements \JsonSerializable
         private string $storeOriginalTransactionId,
         private Price $price,
         private string $purchasedAt,
-        private string $originallyPurchasedAt,
-        private bool $renewStatus,
-        private string|null $expiresAt,
     ) {
         $values = array(
             $this->purchaseType,
@@ -43,13 +46,10 @@ class Transaction implements \JsonSerializable
             $this->storeTransactionId,
             $this->storeOriginalTransactionId,
             $this->purchasedAt,
-            $this->originallyPurchasedAt,
-            $this->renewStatus,
-            $this->expiresAt,
         );
         foreach ($values as $value) {
             if (empty($value)) {
-                throw new \InvalidArgumentException("Offer properties can not be empty");
+                throw new \InvalidArgumentException("Transaction properties can not be empty");
             }
         }
     }
@@ -91,7 +91,7 @@ class Transaction implements \JsonSerializable
     }
 
     /**
-     * @param string|null $cancellationReason
+     * @param ?string $cancellationReason
      * @return void
      */
     public function setCancellationReason(?string $cancellationReason): void
@@ -118,7 +118,7 @@ class Transaction implements \JsonSerializable
     }
 
     /**
-     * @param string|null $billingIssueDetectedAt
+     * @param ?string $billingIssueDetectedAt
      * @return void
      */
     public function setBillingIssueDetectedAt(?string $billingIssueDetectedAt): void
@@ -130,9 +130,36 @@ class Transaction implements \JsonSerializable
      * @param string $gracePeriodExpiresAt
      * @return void
      */
-    public function setgracePeriodExpiresAt(string $gracePeriodExpiresAt): void
+    public function setGracePeriodExpiresAt(string $gracePeriodExpiresAt): void
     {
         $this->gracePeriodExpiresAt = $gracePeriodExpiresAt;
+    }
+
+    /**
+     * @param string $originallyPurchasedAt
+     * @return void
+     */
+    public function setOriginallyPurchasedAt(string $originallyPurchasedAt): void
+    {
+        $this->originallyPurchasedAt = $originallyPurchasedAt;
+    }
+
+    /**
+     * @param bool $renewStatus
+     * @return void
+     */
+    public function setRenewStatus(bool $renewStatus): void
+    {
+        $this->renewStatus = $renewStatus;
+    }
+
+    /**
+     * @param ?string $expiresAt
+     * @return void
+     */
+    public function setExpiresAt(?string $expiresAt): void
+    {
+        $this->expiresAt = $expiresAt;
     }
 
     /**
@@ -141,25 +168,25 @@ class Transaction implements \JsonSerializable
     public function toArray(): array
     {
         return array_filter([
-            'purchase_type' => $this->purchaseType,
-            'store' => $this->store,
-            'environment' => $this->environment,
-            'store_product_id' => $this->storeProductId,
-            'store_transaction_id' => $this->storeTransactionId,
-            'store_original_transaction_id' => $this->storeOriginalTransactionId,
-            'offer' => $this->offer->toArray(),
-            'is_family_shared' => $this->isFamilyShared,
-            'price' => $this->price->toArray(),
-            'purchased_at' => $this->purchasedAt,
-            'refunded_at' => $this->refundedAt,
-            'cancellation_reason' => $this->cancellationReason,
-            'variation_id' => $this->variationId,
-            'originally_purchased_at' => $this->originallyPurchasedAt,
-            'expires_at' => $this->expiresAt,
-            'renew_status' => $this->renewStatus,
-            'renew_status_changed_at' => $this->renewStatusChangedAt,
-            'billing_issue_detected_at' => $this->billingIssueDetectedAt,
-            'grace_period_expires_at' => $this->gracePeriodExpiresAt,
+            'purchase_type' => $this->purchaseType ?? null,
+            'store' => $this->store ?? null,
+            'environment' => $this->environment ?? null,
+            'store_product_id' => $this->storeProductId ?? null,
+            'store_transaction_id' => $this->storeTransactionId ?? null,
+            'store_original_transaction_id' => $this->storeOriginalTransactionId ?? null,
+            'offer' => $this->offer->toArray() ?? null,
+            'is_family_shared' => $this->isFamilyShared ?? null,
+            'price' => $this->price->toArray() ?? null,
+            'purchased_at' => $this->purchasedAt ?? null,
+            'refunded_at' => $this->refundedAt ?? null,
+            'cancellation_reason' => $this->cancellationReason ?? null,
+            'variation_id' => $this->variationId ?? null,
+            'originally_purchased_at' => $this->originallyPurchasedAt ?? null,
+            'expires_at' => $this->expiresAt ?? null,
+            'renew_status' => $this->renewStatus ?? null,
+            'renew_status_changed_at' => $this->renewStatusChangedAt ?? null,
+            'billing_issue_detected_at' => $this->billingIssueDetectedAt ?? null,
+            'grace_period_expires_at' => $this->gracePeriodExpiresAt ?? null,
         ]);
     }
 

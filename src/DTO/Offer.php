@@ -8,12 +8,12 @@ class Offer implements \JsonSerializable
     /**
      * @param string $offerCategory
      * @param string $offerType
-     * @param string $offerId
+     * @param ?string $offerId
      */
     public function __construct(
         public readonly string $offerCategory,
         public readonly string $offerType,
-        public readonly string $offerId,
+        public readonly ?string $offerId,
     ) {
         $values = array(
             $this->offerCategory, 
@@ -27,10 +27,10 @@ class Offer implements \JsonSerializable
     }
 
     /**
-     * @param string|null $offerId
+     * @param ?string $offerId
      * @return void
      */
-    public function setFirstName(?string $offerId): void
+    public function setOfferID(?string $offerId): void
     {
         $this->offerId = $offerId;
     }
@@ -43,7 +43,7 @@ class Offer implements \JsonSerializable
         return array_filter([
             'offer_category' => $this->offerCategory,
             'offer_type' => $this->offerType,
-            'offer_id' => $this->offerId,
+            'offer_id' => $this->offerId ?? null,
         ]);
     }
 
