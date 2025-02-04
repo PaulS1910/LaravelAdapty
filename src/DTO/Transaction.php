@@ -108,7 +108,7 @@ class Transaction implements \JsonSerializable
         $this->variationId = $variationId;
     }
 
-     /**
+    /**
      * @param string $renewStatusChangedAt
      * @return void
      */
@@ -174,7 +174,7 @@ class Transaction implements \JsonSerializable
             'store_product_id' => $this->storeProductId ?? null,
             'store_transaction_id' => $this->storeTransactionId ?? null,
             'store_original_transaction_id' => $this->storeOriginalTransactionId ?? null,
-            'offer' => $this->offer->toArray() ?? null,
+            'offer' => isset($this->offer) ? $this->offer->toArray() : null,
             'is_family_shared' => $this->isFamilyShared ?? null,
             'price' => $this->price->toArray() ?? null,
             'purchased_at' => $this->purchasedAt ?? null,
