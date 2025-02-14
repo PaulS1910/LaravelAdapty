@@ -62,9 +62,7 @@ class AdaptyService
             throw AdaptyValidationException::fromResponse($body);
         }
 
-        throw $exceptionClass::fromResponse(array_merge($body, [
-            'error' => array_merge($body['error'] ?? [], ['code' => $status])
-        ]));
+        throw $exceptionClass::fromResponse($body);
     }
 
     public function getProfile(string $profileId, string $platform): array
