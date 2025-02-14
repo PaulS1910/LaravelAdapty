@@ -17,8 +17,8 @@ abstract class AdaptyException extends HttpClientException
     public static function fromResponse(array $response): static
     {
         return new static(
-            $response['error']['message'] ?? 'Unknown API error',
-            $response['error']['code'] ?? 500
+            $response['error_code'] ?? 'Unknown API error code',
+            $response['status_code'] ?? 500,
         );
     }
 }

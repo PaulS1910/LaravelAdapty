@@ -15,9 +15,9 @@ class AdaptyValidationException extends AdaptyException
     public static function fromResponse(array $response): static
     {
         return new static(
-            $response['error']['message'] ?? 'Validation error',
-            $response['error']['code'] ?? 422,
-            $response['error']['errors'] ?? []
+            $response['error_code'] ?? 'Validation error',
+            $response['status_code'] ?? 422,
+            $response['errors'] ?? []
         );
     }
 }
