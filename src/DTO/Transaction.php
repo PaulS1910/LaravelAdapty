@@ -158,7 +158,7 @@ class Transaction implements \JsonSerializable
             'renew_status_changed_at' => $this->renewStatusChangedAt ?? null,
             'billing_issue_detected_at' => $this->billingIssueDetectedAt ?? null,
             'grace_period_expires_at' => $this->gracePeriodExpiresAt ?? null,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 
     /**
