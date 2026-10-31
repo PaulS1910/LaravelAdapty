@@ -3,13 +3,14 @@
 namespace PS\LaravelAdapty\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use PS\LaravelAdapty\Services\AdaptyService;
 
 class AdaptyServiceProvider extends ServiceProvider
 {
     public function register()
     {
         $this->app->singleton('adapty', function ($app) {
-            return new \PS\LaravelAdapty\Services\AdaptyService();
+            return new AdaptyService;
         });
     }
 

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace PS\LaravelAdapty\DTO;
 
+/**
+ * For subscriptions Adapty also requires originally_purchased_at, expires_at and renew_status.
+ */
 class Transaction implements \JsonSerializable
 {
     private string $environment;
@@ -30,6 +33,11 @@ class Transaction implements \JsonSerializable
 
     private ?string $expiresAt;
 
+    /**
+     * @param  string  $purchaseType  one_time_purchase or subscription
+     * @param  string  $store  app_store, play_store, stripe, paddle or a custom store ID
+     * @param  string  $storeTransactionId  Up to 50 characters
+     */
     public function __construct(
         private string $purchaseType,
         private string $store,
@@ -39,60 +47,48 @@ class Transaction implements \JsonSerializable
         private Price $price,
         private string $purchasedAt,
     ) {
-        $values = array(
+        $values = [
             $this->purchaseType,
             $this->store,
             $this->storeProductId,
             $this->storeTransactionId,
             $this->storeOriginalTransactionId,
             $this->purchasedAt,
-        );
+        ];
         foreach ($values as $value) {
             if (empty($value)) {
-                throw new \InvalidArgumentException("Transaction properties can not be empty");
+                throw new \InvalidArgumentException('Transaction properties can not be empty');
             }
         }
     }
 
     /**
-     * @param string $environment
-     * @return void
+     * @param  string  $environment  Production or Sandbox
      */
     public function setEnvironment(string $environment): void
     {
         $this->environment = $environment;
     }
 
-    /**
-     * @param Offer $offer
-     * @return void
-     */
     public function setOffer(Offer $offer): void
     {
         $this->offer = $offer;
     }
 
-    /**
-     * @param bool $isFamilyShared
-     * @return void
-     */
     public function setIsFamilyShared(bool $isFamilyShared): void
     {
         $this->isFamilyShared = $isFamilyShared;
     }
 
-    /**
-     * @param string $refundedAt
-     * @return void
-     */
     public function setRefundedAt(string $refundedAt): void
     {
         $this->refundedAt = $refundedAt;
     }
 
     /**
-     * @param ?string $cancellationReason
-     * @return void
+     * @param  string|null  $cancellationReason  billing_error, cancelled_by_developer, new_subscription_replace, price_increase,
+     *                                           product_was_not_available, refund, unknown, upgraded, voluntarily_cancelled
+     *                                           or adapty_revoked
      */
     public function setCancellationReason(?string $cancellationReason): void
     {
@@ -100,70 +96,45 @@ class Transaction implements \JsonSerializable
     }
 
     /**
-     * @param string $variationId
-     * @return void
+     * @param  string  $variationId  Paywall variation ID, used for A/B test attribution
      */
     public function setVariationId(string $variationId): void
     {
         $this->variationId = $variationId;
     }
 
-    /**
-     * @param string $renewStatusChangedAt
-     * @return void
-     */
     public function setRenewStatusChangedAt(string $renewStatusChangedAt): void
     {
         $this->renewStatusChangedAt = $renewStatusChangedAt;
     }
 
-    /**
-     * @param ?string $billingIssueDetectedAt
-     * @return void
-     */
     public function setBillingIssueDetectedAt(?string $billingIssueDetectedAt): void
     {
         $this->billingIssueDetectedAt = $billingIssueDetectedAt;
     }
 
-    /**
-     * @param string $gracePeriodExpiresAt
-     * @return void
-     */
     public function setGracePeriodExpiresAt(string $gracePeriodExpiresAt): void
     {
         $this->gracePeriodExpiresAt = $gracePeriodExpiresAt;
     }
 
-    /**
-     * @param string $originallyPurchasedAt
-     * @return void
-     */
     public function setOriginallyPurchasedAt(string $originallyPurchasedAt): void
     {
         $this->originallyPurchasedAt = $originallyPurchasedAt;
     }
 
-    /**
-     * @param bool $renewStatus
-     * @return void
-     */
     public function setRenewStatus(bool $renewStatus): void
     {
         $this->renewStatus = $renewStatus;
     }
 
-    /**
-     * @param ?string $expiresAt
-     * @return void
-     */
     public function setExpiresAt(?string $expiresAt): void
     {
         $this->expiresAt = $expiresAt;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
@@ -187,11 +158,11 @@ class Transaction implements \JsonSerializable
             'renew_status_changed_at' => $this->renewStatusChangedAt ?? null,
             'billing_issue_detected_at' => $this->billingIssueDetectedAt ?? null,
             'grace_period_expires_at' => $this->gracePeriodExpiresAt ?? null,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function jsonSerialize(): array
     {

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PS\LaravelAdapty\DTO;
@@ -23,70 +24,49 @@ class Profile implements \JsonSerializable
 
     private bool $analyticsDisabled;
 
+    /** @var list<array{key: string, value: string|float}> */
     private array $customAttributes;
 
+    /** @var array<string, string> */
     private array $installationMeta;
 
-    public function __construct() {
-    }
+    public function __construct() {}
 
-    /**
-     * @param ?string $firstName
-     * @return void
-     */
     public function setFirstName(?string $firstName): void
     {
         $this->firstName = $firstName;
     }
 
-    /**
-     * @param ?string $lastName
-     * @return void
-     */
     public function setLastName(?string $lastName): void
     {
         $this->lastName = $lastName;
     }
 
     /**
-     * @param ?string $gender
-     * @return void
+     * @param  string|null  $gender  f, m or o
      */
     public function setGender(?string $gender): void
     {
         $this->gender = $gender;
     }
 
-    /**
-     * @param ?string $email
-     * @return void
-     */
     public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
 
-    /**
-     * @param ?string $phoneNumber
-     * @return void
-     */
     public function setPhoneNumber(?string $phoneNumber): void
     {
         $this->phoneNumber = $phoneNumber;
     }
 
-    /**
-     * @param string $birthday
-     * @return void
-     */
     public function setBirthday(string $birthday): void
     {
         $this->birthday = $birthday;
     }
 
     /**
-     * @param ?string $ipCountry
-     * @return void
+     * @param  string|null  $ipCountry  ISO 3166-1 alpha-2 country code, e.g. US
      */
     public function setIpCountry(?string $ipCountry): void
     {
@@ -94,26 +74,21 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @param ?string $storeCountry
-     * @return void
+     * @param  string|null  $storeCountry  ISO 3166-1 alpha-2 country code, e.g. US
      */
     public function setStoreCountry(?string $storeCountry): void
     {
         $this->storeCountry = $storeCountry;
     }
 
-    /**
-     * @param bool $analyticsDisabled
-     * @return void
-     */
     public function setAnalyticsDisabled(bool $analyticsDisabled): void
     {
         $this->analyticsDisabled = $analyticsDisabled;
     }
 
     /**
-     * @param array $customAttributes
-     * @return void
+     * @param  list<array{key: string, value: string|float}>  $customAttributes  Up to 30 items; key up to 30 characters
+     *                                                                           (letters, digits, -._), value up to 50 characters
      */
     public function setCustomAttributes(array $customAttributes): void
     {
@@ -121,8 +96,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @param array $installationMeta
-     * @return void
+     * @param  array<string, string>  $installationMeta  device_id is required, see the Adapty docs for the other keys
      */
     public function setInstallationMeta(array $installationMeta): void
     {
@@ -130,7 +104,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
@@ -150,7 +124,7 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function jsonSerialize(): array
     {

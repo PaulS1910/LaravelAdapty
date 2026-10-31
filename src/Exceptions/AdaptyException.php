@@ -14,6 +14,9 @@ abstract class AdaptyException extends HttpClientException
         parent::__construct($message, $statusCode, $previous);
     }
 
+    /**
+     * @param  array<string, mixed>  $response  Decoded Adapty error body: errors, error_code, status_code
+     */
     public static function fromResponse(array $response): static
     {
         return new static(
