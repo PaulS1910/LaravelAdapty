@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PS\LaravelAdapty\DTO;
@@ -12,26 +13,25 @@ class AccessLevel implements \JsonSerializable
     private ?string $revokeAt;
 
     /**
-     * @param string $accessLevelId
+     * @param  string  $accessLevelId  Paid access level ID from the Access Levels page in the Adapty dashboard
      */
-    public function __construct(private string $accessLevelId) {
+    public function __construct(private string $accessLevelId)
+    {
         if (empty($accessLevelId)) {
-            throw new \InvalidArgumentException("accessLevelId can not be empty");
+            throw new \InvalidArgumentException('accessLevelId can not be empty');
         }
     }
 
     /**
-     * @param ?string $startsAt
-     * @return void
+     * @param  string|null  $startsAt  Datetime when access starts, can be in the future
      */
-    public function setStartsAt(?string $startsAt):  void
+    public function setStartsAt(?string $startsAt): void
     {
         $this->startsAt = $startsAt;
     }
 
     /**
-     * @param ?string $expiresAt
-     * @return void
+     * @param  string|null  $expiresAt  Datetime when access expires, can be in the past; null means lifetime access
      */
     public function setExpiresAt(?string $expiresAt): void
     {
@@ -39,8 +39,7 @@ class AccessLevel implements \JsonSerializable
     }
 
     /**
-     * @param ?string $revokeAt
-     * @return void
+     * @param  string|null  $revokeAt  Datetime when access is revoked; null revokes immediately
      */
     public function setRevokeAt(?string $revokeAt): void
     {
@@ -48,7 +47,7 @@ class AccessLevel implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
@@ -61,7 +60,7 @@ class AccessLevel implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function jsonSerialize(): array
     {

@@ -4,6 +4,9 @@ namespace PS\LaravelAdapty\Exceptions;
 
 class AdaptyValidationException extends AdaptyException
 {
+    /**
+     * @param  list<array{source: string|null, errors: list<string>}>  $errors
+     */
     public function __construct(
         string $message = 'Validation failed',
         int $code = 422,
@@ -12,6 +15,9 @@ class AdaptyValidationException extends AdaptyException
         parent::__construct($message, $code);
     }
 
+    /**
+     * @param  array<string, mixed>  $response  Decoded Adapty error body: errors, error_code, status_code
+     */
     public static function fromResponse(array $response): static
     {
         return new static(

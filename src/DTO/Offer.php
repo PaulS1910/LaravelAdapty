@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PS\LaravelAdapty\DTO;
@@ -6,37 +7,32 @@ namespace PS\LaravelAdapty\DTO;
 class Offer implements \JsonSerializable
 {
     /**
-     * @param string $offerCategory
-     * @param string $offerType
-     * @param ?string $offerId
+     * @param  string  $offerCategory  introductory, promotional, offer_code or win_back
+     * @param  string  $offerType  free_trial, pay_as_you_go or pay_up_front
      */
     public function __construct(
         public readonly string $offerCategory,
         public readonly string $offerType,
         public readonly ?string $offerId,
     ) {
-        $values = array(
-            $this->offerCategory, 
-            $this->offerType
-        );
+        $values = [
+            $this->offerCategory,
+            $this->offerType,
+        ];
         foreach ($values as $value) {
             if (empty($value)) {
-                throw new \InvalidArgumentException("Offer properties can not be empty");
+                throw new \InvalidArgumentException('Offer properties can not be empty');
             }
         }
     }
 
-    /**
-     * @param ?string $offerId
-     * @return void
-     */
     public function setOfferID(?string $offerId): void
     {
         $this->offerId = $offerId;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
@@ -48,7 +44,7 @@ class Offer implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function jsonSerialize(): array
     {
